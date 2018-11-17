@@ -1,11 +1,21 @@
 import './styles/main.scss';
 
-let root = document.getElementById('root');
+import {root, title, timerImage, dishArea, dishes} from './modules/base';
+import {handleControls} from './modules/controls';
+import {updateActiveDish} from './modules/utils';
 
-let title = document.createElement('h1');
-title.innerText = 'Quick Kitchen';
+// Crée une div pour chaque plat et assigne la classe `active` au premier plat
+dishes.filter(function (dish) {
+    let newDish = document.createElement('div');
+    newDish.classList.add('dish');
+    newDish.innerText = dish.name;
+    dishArea.append(newDish);
+    if (dish.active) newDish.classList.add('active');
+});
 
-let timerImage = document.createElement('img');
-timerImage.src = 'images/timer.svg';
+updateActiveDish(dishes);
 
-root.append(title, timerImage);
+handleControls();
+
+// Ajout l'ensemble des éléments au DOM
+root.append(title, timerImage, dishArea);
