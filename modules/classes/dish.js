@@ -13,8 +13,6 @@ export default class Dish {
     html() {
         let html = document.createElement('div');
         html.classList.add('dish');
-        html.innerText = this.name;
-
         return html;
     }
 

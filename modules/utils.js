@@ -4,7 +4,13 @@ async function timesUp(timer) {
     });
 }
 
+String.prototype.interpolate = function (object) {
+    //TODO faire l'interpolate / prop_access
+    return 'test';
+};
+
 
 module.exports = {
     timesUp,
+    interpolate: String.prototype.interpolate,
 };

@@ -1,7 +1,7 @@
 import Tomate from "./classes/ingredients/Tomate";
 import Pizza from "./classes/dishes/Pizza";
 import Timer from "./classes/timer";
-import {timesUp} from "./utils";
+import {timesUp, interpolate} from "./utils";
 
 let root = document.getElementById('root');
 
@@ -36,15 +36,25 @@ dishList.push(pizza1, pizza2, pizza3);
 // Affiche les plats et leur timer dans le DOM
 dishList.filter((dish, index) => {
     dish.timer = new Timer(`${dish.name}_${index}`, dish.waitingDuration, dish.id);
-
     timesUp(dish.timer).then(function () {
         console.log("its over!", dish.timer);
     });
+
     let dishHtml = dish.html();
+    let dishName = '{{ dish.name }}';
+    dishName = dishName.interpolate(dish);
+    dishHtml.innerText = dishName;
     dishHtml.appendChild(dish.timer.html());
     if (dish.active) dishHtml.classList.add('active');
     dishArea.append(dishHtml);
 });
+
+
+// Les ingrédients
+let ingredientsArea = document.createElement('div');
+ingredientsArea.classList.add('ingredients');
+
+let ingredientList = [];
 
 
 module.exports = {
@@ -52,4 +62,6 @@ module.exports = {
     title,
     dishArea,
     dishList,
+    ingredientsArea,
+    ingredientList,
 };

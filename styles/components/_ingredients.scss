@@ -1,17 +1,17 @@
-.dishes {
+.ingredients {
   width: 20%;
   position: relative;
   padding: 30px;
 
   &::before {
-    content: '~ Plats ~';
+    content: '~ Ingredients ~';
     position: absolute;
     top: 5px;
     left: 50%;
     transform: translateX(-50%);
   }
 
-  .dish {
+  .ingredient {
     display: flex;
     align-items: center;
     justify-content: space-between;

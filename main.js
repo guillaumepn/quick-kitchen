@@ -1,6 +1,6 @@
 import './styles/main.scss';
 
-import {root, title, dishArea, dishList} from './modules/base';
+import {root, title, dishArea, dishList, ingredientsArea, ingredientList} from './modules/base';
 import {handleControls} from './modules/controls';
 
 handleControls();
@@ -25,4 +25,4 @@ function render() {
 requestAnimationFrame(render);
 
 // Ajoute l'ensemble des éléments au DOM
-root.append(title, dishArea);
+root.append(ingredientsArea, title, dishArea);
