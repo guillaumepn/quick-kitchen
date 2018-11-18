@@ -1,5 +1,4 @@
-import {dishes} from './base';
-import {updateActiveDish} from './utils';
+import {dishList} from './base';
 
 function handleControls() {
 // Gestion des touches du clavier
@@ -7,24 +6,22 @@ function handleControls() {
         // Flèches du haut et du bas : sélection du plat
         if (e.code === 'ArrowDown') {
             let currentIndex = undefined;
-            dishes.filter(function (dish, index) {
+            dishList.filter(function (dish, index) {
                 if (dish.active) currentIndex = index;
             });
-            dishes[currentIndex].active = false;
+            dishList[currentIndex].active = false;
             currentIndex++;
-            if (currentIndex >= dishes.length) currentIndex = 0;
-            dishes[currentIndex].active = true;
-            updateActiveDish(dishes);
+            if (currentIndex >= dishList.length) currentIndex = 0;
+            dishList[currentIndex].active = true;
         } else if (e.code === 'ArrowUp') {
             let currentIndex = undefined;
-            dishes.filter(function (dish, index) {
+            dishList.filter(function (dish, index) {
                 if (dish.active) currentIndex = index;
             });
-            dishes[currentIndex].active = false;
+            dishList[currentIndex].active = false;
             currentIndex--;
-            if (currentIndex < 0) currentIndex = dishes.length - 1;
-            dishes[currentIndex].active = true;
-            updateActiveDish(dishes);
+            if (currentIndex < 0) currentIndex = dishList.length - 1;
+            dishList[currentIndex].active = true;
         }
 
         // Flèches de gauche et droite : sélection du plat en cuisson

@@ -1,5 +1,5 @@
 export default class Dish {
-    constructor(id, name, timer, ingredients = [], waitingDuration, cookingDuration, beforeBurnt) {
+    constructor(id, name, timer, ingredients = [], waitingDuration, cookingDuration, beforeBurnt, active) {
         this._id = id;
         this._name = name;
         this._ingredients = ingredients;
@@ -7,10 +7,15 @@ export default class Dish {
         this._cookingDuration = cookingDuration;
         this._beforeBurnt = beforeBurnt;
         this._timer = timer;
+        this._active = active;
     }
 
     html() {
-        return `<div>${this._name}</div>`;
+        let html = document.createElement('div');
+        html.classList.add('dish');
+        html.innerText = this.name;
+
+        return html;
     }
 
     addIngredient(ingredient) {
@@ -75,5 +80,13 @@ export default class Dish {
 
     set beforeBurnt(value) {
         this._beforeBurnt = value;
+    }
+
+    get active() {
+        return this._active;
+    }
+
+    set active(value) {
+        this._active = value;
     }
 }

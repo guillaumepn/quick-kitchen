@@ -1,10 +1,10 @@
-function updateActiveDish(dishes) {
-    Array.from(document.querySelectorAll('.dish')).filter(function (dish, index) {
-        dish.classList.remove('active');
-        if (dishes[index].active) dish.classList.add('active');
+async function timesUp(timer) {
+    return new Promise(resolve => {
+        setTimeout(resolve, timer.duration * 1000);
     });
 }
 
+
 module.exports = {
-    updateActiveDish
+    timesUp,
 };

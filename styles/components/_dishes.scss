@@ -1,11 +1,34 @@
 .dishes {
-  display: inline-block;
-  float: right;
+  width: 20%;
 
   .dish {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
 
     &.active {
       background-color: #f7d794;
+      outline: 2px solid #f5cd79;
+    }
+
+    &.done {
+      background-color: #e77f67;
+    }
+
+    &.active.done {
+      background-color: #f3a683;
+    }
+
+    .timer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      width: 70px;
+
+      .chrono {
+        margin: 0 10px;
+      }
     }
   }
 }
