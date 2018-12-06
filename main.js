@@ -19,6 +19,12 @@ function render() {
         if (dishList[index].timer.done) dish.classList.add('done');
     });
 
+    // Affichage du plat sélectionné
+    Array.from(document.querySelectorAll('.ingredient')).filter(function (ingredient, index) {
+        ingredient.classList.remove('validated');
+        if (ingredientList[index].validated) ingredient.classList.add('validated');
+    });
+
     requestAnimationFrame(render);
 }
 

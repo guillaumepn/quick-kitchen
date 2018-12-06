@@ -83,8 +83,6 @@ export default class Timer {
 
     stop() {
         this.done = true;
-        console.log('end of timer: ' + this.id);
-        console.log(this.done)
         cancelAnimationFrame(this.timerId);
     }
 }

@@ -1,11 +1,11 @@
 {
     "pizza": {
+        "name": "Pizza",
         "ingredients": {
             "fromage": {
                 "name": "Fromage",
                 "type": "ingredient",
                 "letter": "F",
-                "required": true,
                 "order": null
             },
             "base": {
@@ -16,14 +16,12 @@
                         "name": "Tomate",
                         "type": "ingredient",
                         "letter": "T",
-                        "required": false,
                         "order": null
                     },
                     "creme": {
                         "name": "Crème",
                         "type": "ingredient",
                         "letter": "C",
-                        "required": false,
                         "order": null
                     }
                 }
@@ -34,33 +32,30 @@
         "expire": 5
     },
     "burger": {
+        "name": "Burger",
         "ingredients": {
             "pain1": {
                 "name": "Pain",
                 "type": "ingredient",
                 "letter": "P",
-                "required": true,
                 "order": 0
             },
             "tomate": {
                 "name": "Tomate",
                 "type": "ingredient",
                 "letter": "T",
-                "required": true,
                 "order": 1
             },
             "steak": {
                 "name": "Steak",
                 "type": "ingredient",
                 "letter": "S",
-                "required": true,
                 "order": 2
             },
             "pain2": {
                 "name": "Pain",
                 "type": "ingredient",
                 "letter": "P",
-                "required": true,
                 "order": 3
             }
         },

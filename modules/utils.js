@@ -4,9 +4,22 @@ async function timesUp(timer) {
     });
 }
 
+function prop_access(object, string) {
+    let props = string.split('.');
+    let res = object;
+    props.map(prop => {
+        res = res[prop]
+    });
+    return res || string
+}
+
 String.prototype.interpolate = function (object) {
-    //TODO faire l'interpolate / prop_access
-    return 'test';
+    let prop = this
+        .replace('{{', '')
+        .replace('}}', '')
+        .trim();
+
+    return prop_access(object, prop);
 };
 
 

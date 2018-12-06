@@ -12,10 +12,16 @@
   }
 
   .ingredient {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: space-between;
-    padding: 5px;
+    flex-direction: column;
+    background: orange;
+    color: white;
+    padding: 8px;
+    margin: 5px;
+    font-size: 11px;
+    width: 60px;
 
     &.active {
       background-color: #f7d794;
@@ -30,15 +36,8 @@
       background-color: #f3a683;
     }
 
-    .timer {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      width: 70px;
-
-      .chrono {
-        margin: 0 10px;
-      }
+    .letter {
+      font-size: 26px;
     }
   }
 }
