@@ -1,6 +1,6 @@
 import './styles/main.scss';
 
-import {root, title, dishArea, dishList, ingredientsArea, ingredientList} from './modules/base';
+import {root, title, dishArea, dishList, ingredientsArea, ingredientList, activeDish, updateActiveDish} from './modules/base';
 import {handleControls} from './modules/controls';
 
 handleControls();
@@ -15,12 +15,16 @@ function render() {
         dishList[index].waitingDuration = dishList[index].timer.duration;
         chrono.dataset.duration = dishList[index].timer.duration;
         chrono.innerText = dishList[index].timer.duration;
-        if (dishList[index].active) dish.classList.add('active');
+        if (dishList[index].active) {
+            dish.classList.add('active');
+        }
         if (dishList[index].timer.done) dish.classList.add('done');
     });
 
-    // Affichage du plat sélectionné
+    // Affichage des ingrédients pour le plat sélectionné
     Array.from(document.querySelectorAll('.ingredient')).filter(function (ingredient, index) {
+        ingredient.classList.remove('show');
+        if (ingredient.dataset.dish === activeDish) ingredient.classList.add('show');
         ingredient.classList.remove('validated');
         if (ingredientList[index].validated) ingredient.classList.add('validated');
     });

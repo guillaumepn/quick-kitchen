@@ -89,19 +89,23 @@ dishList.filter((dish, index) => {
 
 // Affiche les ingrédients du plat sélectionné dans le DOM
 ingredientList.filter((ingredient, index) => {
-    if (ingredient.dish === activeDish || 1 == 1) {
-        let ingredientHtml = ingredient.html();
-        let ingredientName = '{{ name }}';
-        ingredientName = ingredientName.interpolate(ingredient);
-        let ingredientLetter = '{{ letter }}';
-        ingredientLetter = ingredientLetter.interpolate(ingredient);
-        ingredientHtml.innerHTML = `<div class="letter">${ingredientLetter}</div>${ingredientName}`;
-        ingredientsArea.append(ingredientHtml);
-    }
+    let ingredientHtml = ingredient.html();
+    let ingredientName = '{{ name }}';
+    ingredientName = ingredientName.interpolate(ingredient);
+    let ingredientLetter = '{{ letter }}';
+    ingredientLetter = ingredientLetter.interpolate(ingredient);
+    ingredientHtml.innerHTML = `<div class="letter">${ingredientLetter}</div>${ingredientName}`;
+    ingredientHtml.dataset.dish = ingredient.dish;
+    ingredientsArea.append(ingredientHtml);
 });
 
 
-module.exports = {
+function updateActiveDish(dish) {
+    activeDish = dish.id;
+}
+
+
+export {
     root,
     title,
     dishArea,
@@ -109,4 +113,5 @@ module.exports = {
     ingredientsArea,
     ingredientList,
     activeDish,
+    updateActiveDish,
 };

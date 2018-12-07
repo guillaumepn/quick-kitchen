@@ -1,11 +1,12 @@
 export default class Ingredient {
-    constructor(id, name, letter, dish, validated, order) {
+    constructor(id, name, letter, dish, validated, active, order) {
         this._id = id;
         this._name = name;
         this._letter = letter;
         this._dish = dish;
         this._validated = validated;
         this._order = order;
+        this._active = active;
     }
 
     html() {
@@ -52,6 +53,14 @@ export default class Ingredient {
 
     set validated(value) {
         this._validated = value;
+    }
+
+    get active() {
+        return this._active;
+    }
+
+    set active(value) {
+        this._active = value;
     }
 
     get order() {
