@@ -1,5 +1,5 @@
 export default class Dish {
-    constructor(id, name, timer, ingredients = [], waitingDuration, cookingDuration, beforeBurnt, active) {
+    constructor(id, name, timer, ingredients = [], showed, waitingDuration, cookingDuration, beforeBurnt, active) {
         this._id = id;
         this._name = name;
         this._ingredients = ingredients;
@@ -8,6 +8,7 @@ export default class Dish {
         this._beforeBurnt = beforeBurnt;
         this._timer = timer;
         this._active = active;
+        this._showed = showed;
     }
 
     html() {
@@ -87,5 +88,13 @@ export default class Dish {
 
     set active(value) {
         this._active = value;
+    }
+
+    get showed() {
+        return this._showed;
+    }
+
+    set showed(value) {
+        this._showed = value;
     }
 }

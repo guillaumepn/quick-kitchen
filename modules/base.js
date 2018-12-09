@@ -57,6 +57,7 @@ levelDishes.map((dish, index) => {
     const newDish = new Dish(`${dish.name}${index}`, dish.name);
     newDish.waitingDuration = dish.expire + 2;
     newDish.active = index === 0;
+    newDish.showed = false;
     dish.finalIngredients.map(ingredient => {
         newDish.addIngredient(ingredient);
         const newIngredient = new Ingredient(`${ingredient.name}${index}`, ingredient.name, ingredient.letter);
@@ -72,7 +73,8 @@ console.log(ingredientList);
 // Sélectionne les plats à montrer dans le DOM (plats "en attente")
 function selectDishesShowed() {
     dishList.filter((dish, index) => {
-        if (index >= dishesCursor && dishesCounter < 3) {
+        if (index >= dishesCursor && dishesCounter < 3 && !dish.showed) {
+            dish.showed = true;
             dishesShowed.push(dish);
             dishesCursor++;
             dishesCounter++;
@@ -96,7 +98,7 @@ function displayDishes() {
         });
 
         const dishHtml = dish.html();
-        let dishName = '{{ name }}';
+        let dishName = '{{ id }}';
         dishName = dishName.interpolate(dish);
         dishHtml.innerText = dishName;
         dishHtml.appendChild(dish.timer.html());
