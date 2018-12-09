@@ -80,6 +80,7 @@ let activeDish = undefined;
 // Affiche les plats et leur timer dans le DOM
 dishList.filter((dish, index) => {
     dish.timer = new Timer(`${dish.name}_${index}`, dish.waitingDuration, dish.id);
+    // Le timer du plat a expiré :
     timesUp(dish.timer).then(function () {
         score -= 1;
         removeDish(dish);
@@ -116,10 +117,11 @@ function updateActiveDish(dish) {
 }
 
 function removeDish(dish) {
-    let dishId = dish.id;
-    let dishDOM = document.querySelector(`[data-id="${dishId}"]`)
+    let dishDOM = document.querySelector(`[data-id="${dish.id}"]`);
+    let dishIngredientsDOM = document.querySelectorAll(`[data-dish="${dish.id}"]`);
     dishList.splice(dishList.indexOf(dish), 1);
     document.querySelector('.dishes').removeChild(dishDOM);
+    Array.from(dishIngredientsDOM).filter(ingredient => document.querySelector('.ingredients').removeChild(ingredient));
 }
 
 
