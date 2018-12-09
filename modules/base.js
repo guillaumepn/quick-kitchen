@@ -1,5 +1,5 @@
 import Timer from "./classes/timer";
-import {timesUp} from "./utils";
+import {removeDish, timesUp, updateActiveDish, updateScore} from "./utils";
 import * as levels from '../levels';
 import * as dishes from '../dishes';
 import Dish from "./classes/dish";
@@ -37,7 +37,7 @@ for (let dishKey in levels[currentLevel]) {
         if (ingredient.type === 'group') {
             let groupIngredients = ingredient.ingredients;
             let groupIngredientKeys = Object.keys(groupIngredients);
-            let randomIngredient = groupIngredients[groupIngredientKeys[groupIngredientKeys.length * Math.random() << 0]]
+            let randomIngredient = groupIngredients[groupIngredientKeys[groupIngredientKeys.length * Math.random() << 0]];
             dishIngredients.push(randomIngredient);
         } else {
             dishIngredients.push(ingredient);
@@ -75,14 +75,13 @@ levelDishes.map((dish, index) => {
 console.log(dishList);
 console.log(ingredientList);
 
-let activeDish = undefined;
-
 // Affiche les plats et leur timer dans le DOM
 dishList.filter((dish, index) => {
     dish.timer = new Timer(`${dish.name}_${index}`, dish.waitingDuration, dish.id);
     // Le timer du plat a expiré :
     timesUp(dish.timer).then(function () {
         score -= 1;
+        updateScore(score);
         removeDish(dish);
     });
 
@@ -92,7 +91,7 @@ dishList.filter((dish, index) => {
     dishHtml.innerText = dishName;
     dishHtml.appendChild(dish.timer.html());
     if (dish.active) {
-        activeDish = dish.id;
+        updateActiveDish(dish);
         dishHtml.classList.add('active');
     }
     dishArea.append(dishHtml);
@@ -100,7 +99,7 @@ dishList.filter((dish, index) => {
 
 
 // Affiche les ingrédients du plat sélectionné dans le DOM
-ingredientList.filter((ingredient, index) => {
+ingredientList.filter(ingredient => {
     let ingredientHtml = ingredient.html();
     let ingredientName = '{{ name }}';
     ingredientName = ingredientName.interpolate(ingredient);
@@ -112,19 +111,6 @@ ingredientList.filter((ingredient, index) => {
 });
 
 
-function updateActiveDish(dish) {
-    activeDish = dish.id;
-}
-
-function removeDish(dish) {
-    let dishDOM = document.querySelector(`[data-id="${dish.id}"]`);
-    let dishIngredientsDOM = document.querySelectorAll(`[data-dish="${dish.id}"]`);
-    dishList.splice(dishList.indexOf(dish), 1);
-    document.querySelector('.dishes').removeChild(dishDOM);
-    Array.from(dishIngredientsDOM).filter(ingredient => document.querySelector('.ingredients').removeChild(ingredient));
-}
-
-
 export {
     root,
     topSection,
@@ -133,6 +119,4 @@ export {
     dishList,
     ingredientsArea,
     ingredientList,
-    activeDish,
-    updateActiveDish,
 };

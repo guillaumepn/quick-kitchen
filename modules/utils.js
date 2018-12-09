@@ -1,4 +1,8 @@
-async function timesUp(timer) {
+import {dishList, score} from "./base";
+
+let activeDish = undefined;
+
+function timesUp(timer) {
     return new Promise(resolve => {
         setTimeout(resolve, timer.duration * 1000);
     });
@@ -22,8 +26,27 @@ String.prototype.interpolate = function (object) {
     return prop_access(object, prop);
 };
 
+function updateActiveDish(dish) {
+    activeDish = dish.id;
+}
 
-module.exports = {
+function removeDish(dish) {
+    let dishDOM = document.querySelector(`[data-id="${dish.id}"]`);
+    let dishIngredientsDOM = document.querySelectorAll(`[data-dish="${dish.id}"]`);
+    dishList.splice(dishList.indexOf(dish), 1);
+    document.querySelector('.dishes').removeChild(dishDOM);
+    Array.from(dishIngredientsDOM).filter(ingredient => document.querySelector('.ingredients').removeChild(ingredient));
+}
+
+function updateScore(score) {
+    document.querySelector('.score').innerHTML = score.toString();
+}
+
+
+export {
     timesUp,
-    interpolate: String.prototype.interpolate,
+    updateActiveDish,
+    removeDish,
+    updateScore,
+    activeDish
 };

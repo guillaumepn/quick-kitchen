@@ -4,21 +4,19 @@ import {
     root,
     dishArea,
     dishList,
-    score,
     ingredientsArea,
     ingredientList,
-    activeDish,
     topSection
 } from './modules/base';
 
 import {handleControls} from './modules/controls';
+import {activeDish} from "./modules/utils";
 
 handleControls();
 
 // Ajoute l'ensemble des éléments au DOM
 root.append(ingredientsArea, topSection, dishArea);
 
-let displayedScore = document.querySelector('.score');
 
 // Met à jour le DOM à chaque frame
 function render() {
@@ -43,11 +41,6 @@ function render() {
         ingredient.classList.remove('validated');
         if (ingredientList[index].validated) ingredient.classList.add('validated');
     });
-
-    // Met à jour le score affiché
-    if (score.toString() !== displayedScore.innerHTML) {
-        displayedScore.innerHTML = score.toString();
-    }
 
     requestAnimationFrame(render);
 }

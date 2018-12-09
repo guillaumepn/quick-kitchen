@@ -1,4 +1,5 @@
-import {dishList, updateActiveDish} from './base';
+import {dishList} from './base';
+import {updateActiveDish} from "./utils";
 
 function handleControls() {
 // Gestion des touches du clavier
