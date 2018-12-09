@@ -13,6 +13,7 @@ export default class Dish {
     html() {
         let html = document.createElement('div');
         html.classList.add('dish');
+        html.dataset.id = this.id;
         return html;
     }
 

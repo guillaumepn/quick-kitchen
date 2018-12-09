@@ -7,8 +7,18 @@ import Ingredient from "./classes/ingredient";
 
 let root = document.getElementById('root');
 
+let topSection = document.createElement('div');
+topSection.classList.add('top-section');
 let title = document.createElement('h1');
-title.innerText = 'Quick Kitchen';
+
+// title.innerText = 'Quick Kitchen';
+title.innerText = 'JS Project';
+
+let scoreHtml = document.createElement('h4');
+let score = 0;
+scoreHtml.innerHTML = `Score : <span class="score">${score}</span>`;
+
+topSection.append(title, scoreHtml);
 
 let currentLevel = 1;
 
@@ -71,7 +81,8 @@ let activeDish = undefined;
 dishList.filter((dish, index) => {
     dish.timer = new Timer(`${dish.name}_${index}`, dish.waitingDuration, dish.id);
     timesUp(dish.timer).then(function () {
-        // console.log("its over!", dish.timer);
+        score -= 1;
+        removeDish(dish);
     });
 
     let dishHtml = dish.html();
@@ -104,10 +115,18 @@ function updateActiveDish(dish) {
     activeDish = dish.id;
 }
 
+function removeDish(dish) {
+    let dishId = dish.id;
+    let dishDOM = document.querySelector(`[data-id="${dishId}"]`)
+    dishList.splice(dishList.indexOf(dish), 1);
+    document.querySelector('.dishes').removeChild(dishDOM);
+}
+
 
 export {
     root,
-    title,
+    topSection,
+    score,
     dishArea,
     dishList,
     ingredientsArea,

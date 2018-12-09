@@ -2,12 +2,6 @@
     "pizza": {
         "name": "Pizza",
         "ingredients": {
-            "fromage": {
-                "name": "Fromage",
-                "type": "ingredient",
-                "letter": "F",
-                "order": null
-            },
             "base": {
                 "type": "group",
                 "required": true,
@@ -16,15 +10,27 @@
                         "name": "Tomate",
                         "type": "ingredient",
                         "letter": "T",
-                        "order": null
+                        "order": 0
                     },
                     "creme": {
                         "name": "Crème",
                         "type": "ingredient",
                         "letter": "C",
-                        "order": null
+                        "order": 0
                     }
                 }
+            },
+            "fromage": {
+                "name": "Fromage",
+                "type": "ingredient",
+                "letter": "F",
+                "order": 1
+            },
+            "olives": {
+                "name": "Olives",
+                "type": "ingredient",
+                "letter": "O",
+                "order": 2
             }
         },
         "cooldown": 10,
