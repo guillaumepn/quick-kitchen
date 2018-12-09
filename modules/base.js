@@ -30,7 +30,7 @@ dishArea.classList.add('dishes');
 ingredientsArea.classList.add('ingredients');
 
 
-// Les plats
+// Les plats à partir de levels.json et dishes.json pour le niveau actuel
 for (const dishKey in levels[currentLevel]) {
     const dishType = levels[currentLevel][dishKey];
     const dish = Object.create(dishes[dishType]);
@@ -53,22 +53,23 @@ for (const dishKey in levels[currentLevel]) {
 }
 
 
+// Instanciation des plats et ingrédients à partir de leur class
 levelDishes.map((dish, index) => {
     const newDish = new Dish(`${dish.name}${index}`, dish.name);
     newDish.waitingDuration = dish.expire + 2;
     newDish.active = index === 0;
     newDish.showed = false;
-    dish.finalIngredients.map(ingredient => {
-        newDish.addIngredient(ingredient);
-        const newIngredient = new Ingredient(`${ingredient.name}${index}`, ingredient.name, ingredient.letter);
+    dish.finalIngredients.map((ingredient, ingredientIndex) => {
+        const newIngredient = new Ingredient(`${ingredient.name}${ingredientIndex}`, ingredient.name, ingredient.letter);
         newIngredient.dish = newDish.id;
+        newIngredient.validated = false;
+        newDish.addIngredient(newIngredient);
         ingredientList.push(newIngredient);
     });
     dishList.push(newDish);
 });
 
-console.log(dishList);
-console.log(ingredientList);
+console.log(dishList)
 
 // Sélectionne les plats à montrer dans le DOM (plats "en attente")
 function selectDishesShowed() {
@@ -89,13 +90,13 @@ function displayDishes() {
     dishesShowed.filter((dish, index) => {
         dish.timer = new Timer(`${dish.name}_${index}`, dish.waitingDuration, dish.id);
         // Le timer du plat a expiré :
-        timesUp(dish.timer).then(function () {
-            score -= 1;
-            dishesCounter--;
-            dishesChanged = true;
-            updateScore(score);
-            removeDish(dish);
-        });
+        // timesUp(dish.timer).then(function () {
+        //     score -= 1;
+        //     dishesCounter--;
+        //     dishesChanged = true;
+        //     updateScore(score);
+        //     removeDish(dish);
+        // });
 
         const dishHtml = dish.html();
         let dishName = '{{ id }}';

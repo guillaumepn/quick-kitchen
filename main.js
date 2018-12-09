@@ -47,7 +47,7 @@ function render() {
     // Affichage des ingrédients pour le plat sélectionné
     Array.from(document.querySelectorAll('.ingredient')).filter(function (ingredient, index) {
         ingredient.classList.remove('show');
-        if (ingredient.dataset.dish === activeDish) ingredient.classList.add('show');
+        if (ingredient.dataset.dish === activeDish.id) ingredient.classList.add('show');
         ingredient.classList.remove('validated');
         if (ingredientList[index].validated) ingredient.classList.add('validated');
     });

@@ -27,7 +27,7 @@ function prop_access(object, string) {
 }
 
 function updateActiveDish(dish) {
-    activeDish = dish.id;
+    activeDish = dish;
 }
 
 function removeDish(dish) {

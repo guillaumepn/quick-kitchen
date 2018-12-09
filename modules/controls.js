@@ -1,5 +1,5 @@
 import {dishesShowed} from './base';
-import {updateActiveDish} from "./utils";
+import {activeDish, updateActiveDish} from "./utils";
 
 function handleControls() {
 // Gestion des touches du clavier
@@ -43,6 +43,18 @@ function handleControls() {
 
         }
     });
+
+    document.addEventListener('keypress', function (e) {
+        for (let ingredient of activeDish.ingredients) {
+            if (e.key === ingredient.letter.toLowerCase() && !ingredient.validated) {
+                ingredient.validated = true;
+                const ingredientHtml = ingredient.html();
+                ingredientHtml.classList.add('validated');
+                document.querySelector(`[data-dish="${activeDish.id}"]`)
+                break;
+            }
+        }
+    })
 }
 
 module.exports = {

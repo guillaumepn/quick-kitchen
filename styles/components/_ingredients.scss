@@ -16,7 +16,7 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
-    background: orange;
+    background: #fa983a;
     color: white;
     padding: 8px;
     margin: 5px;
@@ -27,17 +27,8 @@
       display: inline-flex;
     }
 
-    &.active {
-      background-color: #f7d794;
-      outline: 2px solid #f5cd79;
-    }
-
-    &.done {
-      background-color: #e77f67;
-    }
-
-    &.active.done {
-      background-color: #f3a683;
+    &.validated {
+      background-color: #78e08f;
     }
 
     .letter {
