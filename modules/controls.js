@@ -1,32 +1,38 @@
-import {dishList} from './base';
+import {dishesShowed} from './base';
 import {updateActiveDish} from "./utils";
 
 function handleControls() {
 // Gestion des touches du clavier
     document.addEventListener('keydown', function (e) {
         // Navigation dans les plats "en attente" :
-        if (dishList.length > 0) {
+        if (dishesShowed.length > 0) {
+            if (!document.querySelector('.dish.active')) {
+                updateActiveDish(dishesShowed[0]);
+                dishesShowed[0].active = true;
+                const dishShowHtml = dishesShowed[0].html();
+                dishShowHtml.classList.add('active');
+            }
             // Flèches du haut et du bas : sélection du plat
             if (e.code === 'ArrowDown') {
                 let currentIndex = undefined;
-                dishList.filter(function (dish, index) {
+                dishesShowed.filter(function (dish, index) {
                     if (dish.active) currentIndex = index;
                 });
-                dishList[currentIndex].active = false;
+                dishesShowed[currentIndex].active = false;
                 currentIndex++;
-                if (currentIndex >= dishList.length) currentIndex = 0;
-                dishList[currentIndex].active = true;
-                updateActiveDish(dishList[currentIndex]);
+                if (currentIndex >= dishesShowed.length) currentIndex = 0;
+                dishesShowed[currentIndex].active = true;
+                updateActiveDish(dishesShowed[currentIndex]);
             } else if (e.code === 'ArrowUp') {
                 let currentIndex = undefined;
-                dishList.filter(function (dish, index) {
+                dishesShowed.filter(function (dish, index) {
                     if (dish.active) currentIndex = index;
                 });
-                dishList[currentIndex].active = false;
+                dishesShowed[currentIndex].active = false;
                 currentIndex--;
-                if (currentIndex < 0) currentIndex = dishList.length - 1;
-                dishList[currentIndex].active = true;
-                updateActiveDish(dishList[currentIndex]);
+                if (currentIndex < 0) currentIndex = dishesShowed.length - 1;
+                dishesShowed[currentIndex].active = true;
+                updateActiveDish(dishesShowed[currentIndex]);
             }
         }
 

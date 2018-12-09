@@ -1,6 +1,15 @@
-import {dishList, score} from "./base";
+import {dishesShowed, score} from "./base";
 
 let activeDish = undefined;
+
+String.prototype.interpolate = function (object) {
+    const prop = this
+        .replace('{{', '')
+        .replace('}}', '')
+        .trim();
+
+    return prop_access(object, prop);
+};
 
 function timesUp(timer) {
     return new Promise(resolve => {
@@ -9,7 +18,7 @@ function timesUp(timer) {
 }
 
 function prop_access(object, string) {
-    let props = string.split('.');
+    const props = string.split('.');
     let res = object;
     props.map(prop => {
         res = res[prop]
@@ -17,23 +26,14 @@ function prop_access(object, string) {
     return res || string
 }
 
-String.prototype.interpolate = function (object) {
-    let prop = this
-        .replace('{{', '')
-        .replace('}}', '')
-        .trim();
-
-    return prop_access(object, prop);
-};
-
 function updateActiveDish(dish) {
     activeDish = dish.id;
 }
 
 function removeDish(dish) {
-    let dishDOM = document.querySelector(`[data-id="${dish.id}"]`);
-    let dishIngredientsDOM = document.querySelectorAll(`[data-dish="${dish.id}"]`);
-    dishList.splice(dishList.indexOf(dish), 1);
+    const dishDOM = document.querySelector(`[data-id="${dish.id}"]`);
+    const dishIngredientsDOM = document.querySelectorAll(`[data-dish="${dish.id}"]`);
+    dishesShowed.splice(dishesShowed.indexOf(dish), 1);
     document.querySelector('.dishes').removeChild(dishDOM);
     Array.from(dishIngredientsDOM).filter(ingredient => document.querySelector('.ingredients').removeChild(ingredient));
 }

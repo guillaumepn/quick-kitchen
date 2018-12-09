@@ -3,14 +3,17 @@ import './styles/main.scss';
 import {
     root,
     dishArea,
-    dishList,
     ingredientsArea,
     ingredientList,
-    topSection
+    topSection,
+    dishesChanged,
+    displayDishes,
+    selectDishesShowed,
+    dishesShowed
 } from './modules/base';
 
 import {handleControls} from './modules/controls';
-import {activeDish} from "./modules/utils";
+import {activeDish, updateActiveDish} from "./modules/utils";
 
 handleControls();
 
@@ -21,17 +24,24 @@ root.append(ingredientsArea, topSection, dishArea);
 // Met à jour le DOM à chaque frame
 function render() {
 
+    if (dishesChanged) {
+        selectDishesShowed();
+        displayDishes();
+    }
+
     // Affichage du plat sélectionné
     Array.from(document.querySelectorAll('.dish')).filter(function (dish, index) {
         dish.classList.remove('active');
-        let chrono = dish.querySelector('.chrono');
-        dishList[index].waitingDuration = dishList[index].timer.duration;
-        chrono.dataset.duration = dishList[index].timer.duration;
-        chrono.innerText = dishList[index].timer.duration;
-        if (dishList[index].active) {
-            dish.classList.add('active');
+        const chrono = dish.querySelector('.chrono');
+        if (dishesShowed[index]) {
+            dishesShowed[index].waitingDuration = dishesShowed[index].timer.duration;
+            chrono.dataset.duration = dishesShowed[index].timer.duration;
+            chrono.innerText = dishesShowed[index].timer.duration;
+            if (dishesShowed[index].active) {
+                dish.classList.add('active');
+            }
+            if (dishesShowed[index].timer.done) dish.classList.add('done');
         }
-        if (dishList[index].timer.done) dish.classList.add('done');
     });
 
     // Affichage des ingrédients pour le plat sélectionné
