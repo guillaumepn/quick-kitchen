@@ -3,12 +3,12 @@ import {activeDish, updateActiveDish} from "./utils";
 
 function handleControls() {
 // Gestion des touches du clavier
-    document.addEventListener('keydown', function (e) {
+    document.addEventListener('keyup', function (e) {
         // Navigation dans les plats "en attente" :
         if (dishesShowed.length > 0) {
+            let currentIndex = null;
             // Flèches du haut et du bas : sélection du plat
             if (e.code === 'ArrowDown') {
-                let currentIndex = undefined;
                 dishesShowed.filter(function (dish, index) {
                     if (dish.active) currentIndex = index;
                 });
@@ -18,7 +18,6 @@ function handleControls() {
                 dishesShowed[currentIndex].active = true;
                 updateActiveDish(dishesShowed[currentIndex]);
             } else if (e.code === 'ArrowUp') {
-                let currentIndex = undefined;
                 dishesShowed.filter(function (dish, index) {
                     if (dish.active) currentIndex = index;
                 });

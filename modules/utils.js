@@ -21,9 +21,9 @@ function prop_access(object, string) {
     const props = string.split('.');
     let res = object;
     props.map(prop => {
-        res = res[prop]
+        res = res[prop];
     });
-    return res || string
+    return res || string;
 }
 
 function updateActiveDish(dish) {
