@@ -6,7 +6,7 @@ function handleControls() {
     document.addEventListener('keyup', function (e) {
         // Navigation dans les plats "en attente" :
         if (dishesShowed.length > 0) {
-            let currentIndex = null;
+            let currentIndex = 0;
             // Flèches du haut et du bas : sélection du plat
             if (e.code === 'ArrowDown') {
                 dishesShowed.filter(function (dish, index) {

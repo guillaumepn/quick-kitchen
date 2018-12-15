@@ -122,11 +122,11 @@ function displayDishes() {
             // Le timer du plat a expiré :
             timesUp(dish.timer).then(function () {
                 if (!dish.makingCompleted) {
-                    decreaseDishesCounter();
-                    dishesHasChanged();
                     const newScore = score - 1;
                     updateScore(newScore);
                     removeDish(dish);
+                    decreaseDishesCounter();
+                    dishesHasChanged();
                 }
             });
 

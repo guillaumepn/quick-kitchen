@@ -31,7 +31,10 @@ function prop_access(object, string) {
 }
 
 function updateActiveDish(dish) {
+    dish.active = true;
     activeDish = dish;
+    const dishShowHtml = dish.html();
+    dishShowHtml.classList.add('active');
 }
 
 function checkCompletedDishMaking(dish) {
@@ -45,12 +48,12 @@ function checkCompletedDishMaking(dish) {
 
 // Quand les ingrédients du plat sont tous entrés, ça part en cuisson
 function validateDishMaking(dish) {
-    decreaseDishesCounter();
-    dishesHasChanged();
     dish.makingCompleted = true;
     const newScore = score + 5;
     updateScore(newScore);
     moveDishToCooking(dish);
+    decreaseDishesCounter();
+    dishesHasChanged();
 }
 
 // Quand la cuisson est finie et le plat envoyé
@@ -78,7 +81,6 @@ function moveDishToCooking(dish) {
     }
     document.querySelector('.cooking-dishes').appendChild(dishDOM);
     Array.from(dishIngredientsDOM).filter(ingredient => document.querySelector('.ingredients').removeChild(ingredient));
-
 }
 
 function updateScore(newScore) {

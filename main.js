@@ -34,9 +34,6 @@ function render() {
         displayDishes();
         if (dishesShowed.length > 0 && !document.querySelector('.dish.active')) {
             updateActiveDish(dishesShowed[0]);
-            dishesShowed[0].active = true;
-            const dishShowHtml = dishesShowed[0].html();
-            dishShowHtml.classList.add('active');
         }
     }
 
