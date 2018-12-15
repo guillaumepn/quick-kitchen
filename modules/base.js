@@ -1,5 +1,18 @@
 import Timer from "./classes/timer";
-import {removeDish, timesUp, updateActiveDish, updateScore} from "./utils";
+import {
+    decreaseDishesCounter,
+    dishesCounter,
+    dishesCursor,
+    dishesHasChanged,
+    dishesHasNotChanged,
+    increaseDishesCounter,
+    increaseDishesCursor,
+    removeDish,
+    score,
+    timesUp,
+    updateActiveDish,
+    updateScore
+} from "./utils";
 import * as levels from '../levels';
 import * as dishes from '../dishes';
 import Dish from "./classes/dish";
@@ -16,11 +29,8 @@ const dishesShowed = [];
 const ingredientList = [];
 const ingredientsShowed = [];
 const levelDishes = [];
-let score = 0;
 let currentLevel = 1;
-let dishesCursor = 0;
-let dishesCounter = 0;
-let dishesChanged = false;
+
 
 topSection.classList.add('top-section');
 title.innerText = 'JS Project';
@@ -70,7 +80,6 @@ levelDishes.map((dish, index) => {
     dishList.push(newDish);
 });
 
-console.log(dishList)
 
 // Sélectionne les plats à montrer dans le DOM (plats "en attente")
 function selectDishesShowed() {
@@ -78,10 +87,10 @@ function selectDishesShowed() {
         if (index >= dishesCursor && dishesCounter < 3 && !dish.showed) {
             dish.showed = true;
             dishesShowed.push(dish);
-            dishesCursor++;
-            dishesCounter++;
+            increaseDishesCursor();
+            increaseDishesCounter();
 
-            ingredientList.filter((ingredient, ingredientIndex) => {
+            ingredientList.filter(ingredient => {
                 if (ingredient.dish === dish.id && !ingredient.showed) {
                     ingredient.showed = true;
                     ingredientsShowed.push(ingredient);
@@ -96,40 +105,44 @@ selectDishesShowed();
 // Affiche les plats et leur timer dans le DOM
 function displayDishes() {
     dishesShowed.filter((dish, index) => {
-        dish.timer = new Timer(`${dish.name}_${index}`, dish.waitingDuration, dish.id);
-        // Le timer du plat a expiré :
-        timesUp(dish.timer).then(function () {
-            score -= 1;
-            dishesCounter--;
-            dishesChanged = true;
-            updateScore(score);
-            removeDish(dish);
-        });
+        if (!dish.timer) {
+            dish.timer = new Timer(`${dish.name}_${index}`, dish.waitingDuration, dish.id);
+            // Le timer du plat a expiré :
+            timesUp(dish.timer).then(function () {
+                if (!dish.makingCompleted) {
+                    decreaseDishesCounter();
+                    dishesHasChanged();
+                    const newScore = score - 1;
+                    updateScore(newScore);
+                    removeDish(dish);
+                }
+            });
 
-        const dishHtml = dish.html();
-        let dishName = '{{ id }}';
-        dishName = dishName.interpolate(dish);
-        dishHtml.innerText = dishName;
-        dishHtml.appendChild(dish.timer.html());
-        if (dish.active) {
-            updateActiveDish(dish);
-            dishHtml.classList.add('active');
+            const dishHtml = dish.html();
+            let dishName = '{{ id }}';
+            dishName = dishName.interpolate(dish);
+            dishHtml.innerText = dishName;
+            dishHtml.appendChild(dish.timer.html());
+            if (dish.active) {
+                updateActiveDish(dish);
+                dishHtml.classList.add('active');
+            }
+            dishArea.append(dishHtml);
+
+            dish.ingredients.filter(ingredient => {
+                const ingredientHtml = ingredient.html();
+                let ingredientName = '{{ name }}';
+                ingredientName = ingredientName.interpolate(ingredient);
+                let ingredientLetter = '{{ letter }}';
+                ingredientLetter = ingredientLetter.interpolate(ingredient);
+                ingredientHtml.innerHTML = `<div class="letter">${ingredientLetter}</div>${ingredientName}`;
+                ingredientHtml.dataset.dish = ingredient.dish;
+                ingredientHtml.dataset.id = ingredient.id;
+                ingredientsArea.append(ingredientHtml);
+            });
         }
-        dishArea.append(dishHtml);
-
-        dish.ingredients.filter(ingredient => {
-            const ingredientHtml = ingredient.html();
-            let ingredientName = '{{ name }}';
-            ingredientName = ingredientName.interpolate(ingredient);
-            let ingredientLetter = '{{ letter }}';
-            ingredientLetter = ingredientLetter.interpolate(ingredient);
-            ingredientHtml.innerHTML = `<div class="letter">${ingredientLetter}</div>${ingredientName}`;
-            ingredientHtml.dataset.dish = ingredient.dish;
-            ingredientHtml.dataset.id = ingredient.id;
-            ingredientsArea.append(ingredientHtml);
-        });
     });
-    dishesChanged = false;
+    dishesHasNotChanged();
 }
 
 displayDishes();
@@ -138,7 +151,6 @@ displayDishes();
 export {
     root,
     topSection,
-    score,
     dishArea,
     dishList,
     dishesShowed,
@@ -147,5 +159,4 @@ export {
     ingredientsShowed,
     selectDishesShowed,
     displayDishes,
-    dishesChanged,
 };

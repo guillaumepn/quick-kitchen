@@ -1,5 +1,5 @@
 export default class Dish {
-    constructor(id, name, timer, ingredients = [], showed, waitingDuration, cookingDuration, beforeBurnt, active) {
+    constructor(id, name, timer = null, ingredients = [], showed, waitingDuration, cookingDuration, beforeBurnt, active, makingCompleted = false, cookingCompleted = false) {
         this._id = id;
         this._name = name;
         this._ingredients = ingredients;
@@ -9,6 +9,8 @@ export default class Dish {
         this._timer = timer;
         this._active = active;
         this._showed = showed;
+        this._makingCompleted = makingCompleted;
+        this._cookingCompleted = cookingCompleted;
     }
 
     html() {
@@ -96,5 +98,21 @@ export default class Dish {
 
     set showed(value) {
         this._showed = value;
+    }
+
+    get makingCompleted() {
+        return this._makingCompleted;
+    }
+
+    set makingCompleted(value) {
+        this._makingCompleted = value;
+    }
+
+    get cookingCompleted() {
+        return this._cookingCompleted;
+    }
+
+    set cookingCompleted(value) {
+        this._cookingCompleted = value;
     }
 }

@@ -1,5 +1,5 @@
-import {dishesShowed, dishList} from './base';
-import {activeDish, updateActiveDish} from "./utils";
+import {dishesShowed} from './base';
+import {activeDish, checkCompletedDishMaking, updateActiveDish} from "./utils";
 
 function handleControls() {
 // Gestion des touches du clavier
@@ -40,8 +40,8 @@ function handleControls() {
     document.addEventListener('keypress', function (e) {
         for (let ingredient of activeDish.ingredients) {
             if (e.key === ingredient.letter.toLowerCase() && !ingredient.validated) {
-                console.log(ingredient);
                 ingredient.validated = true;
+                checkCompletedDishMaking(activeDish);
                 break;
             }
         }

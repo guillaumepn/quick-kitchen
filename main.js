@@ -5,7 +5,6 @@ import {
     dishArea,
     ingredientsArea,
     topSection,
-    dishesChanged,
     displayDishes,
     selectDishesShowed,
     dishesShowed,
@@ -13,7 +12,7 @@ import {
 } from './modules/base';
 
 import {handleControls} from './modules/controls';
-import {activeDish, updateActiveDish} from "./modules/utils";
+import {activeDish, dishesChanged, updateActiveDish} from "./modules/utils";
 
 handleControls();
 
