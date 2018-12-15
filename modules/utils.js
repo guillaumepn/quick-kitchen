@@ -1,4 +1,4 @@
-import {dishesShowed, score} from "./base";
+import {dishesShowed, ingredientsShowed, score} from "./base";
 
 let activeDish = undefined;
 
@@ -34,6 +34,9 @@ function removeDish(dish) {
     const dishDOM = document.querySelector(`[data-id="${dish.id}"]`);
     const dishIngredientsDOM = document.querySelectorAll(`[data-dish="${dish.id}"]`);
     dishesShowed.splice(dishesShowed.indexOf(dish), 1);
+    for (let ingredient of dish.ingredients) {
+        ingredientsShowed.splice(ingredientsShowed.indexOf(ingredient), 1);
+    }
     document.querySelector('.dishes').removeChild(dishDOM);
     Array.from(dishIngredientsDOM).filter(ingredient => document.querySelector('.ingredients').removeChild(ingredient));
 }

@@ -14,6 +14,7 @@ const ingredientsArea = document.createElement('div');
 const dishList = [];
 const dishesShowed = [];
 const ingredientList = [];
+const ingredientsShowed = [];
 const levelDishes = [];
 let score = 0;
 let currentLevel = 1;
@@ -60,7 +61,7 @@ levelDishes.map((dish, index) => {
     newDish.active = index === 0;
     newDish.showed = false;
     dish.finalIngredients.map((ingredient, ingredientIndex) => {
-        const newIngredient = new Ingredient(`${ingredient.name}${ingredientIndex}`, ingredient.name, ingredient.letter);
+        const newIngredient = new Ingredient(`${ingredient.name}${index}${ingredientIndex}`, ingredient.name, ingredient.letter);
         newIngredient.dish = newDish.id;
         newIngredient.validated = false;
         newDish.addIngredient(newIngredient);
@@ -79,6 +80,13 @@ function selectDishesShowed() {
             dishesShowed.push(dish);
             dishesCursor++;
             dishesCounter++;
+
+            ingredientList.filter((ingredient, ingredientIndex) => {
+                if (ingredient.dish === dish.id && !ingredient.showed) {
+                    ingredient.showed = true;
+                    ingredientsShowed.push(ingredient);
+                }
+            })
         }
     });
 }
@@ -90,13 +98,13 @@ function displayDishes() {
     dishesShowed.filter((dish, index) => {
         dish.timer = new Timer(`${dish.name}_${index}`, dish.waitingDuration, dish.id);
         // Le timer du plat a expiré :
-        // timesUp(dish.timer).then(function () {
-        //     score -= 1;
-        //     dishesCounter--;
-        //     dishesChanged = true;
-        //     updateScore(score);
-        //     removeDish(dish);
-        // });
+        timesUp(dish.timer).then(function () {
+            score -= 1;
+            dishesCounter--;
+            dishesChanged = true;
+            updateScore(score);
+            removeDish(dish);
+        });
 
         const dishHtml = dish.html();
         let dishName = '{{ id }}';
@@ -108,24 +116,23 @@ function displayDishes() {
             dishHtml.classList.add('active');
         }
         dishArea.append(dishHtml);
+
+        dish.ingredients.filter(ingredient => {
+            const ingredientHtml = ingredient.html();
+            let ingredientName = '{{ name }}';
+            ingredientName = ingredientName.interpolate(ingredient);
+            let ingredientLetter = '{{ letter }}';
+            ingredientLetter = ingredientLetter.interpolate(ingredient);
+            ingredientHtml.innerHTML = `<div class="letter">${ingredientLetter}</div>${ingredientName}`;
+            ingredientHtml.dataset.dish = ingredient.dish;
+            ingredientHtml.dataset.id = ingredient.id;
+            ingredientsArea.append(ingredientHtml);
+        });
     });
     dishesChanged = false;
 }
 
 displayDishes();
-
-
-// Affiche les ingrédients du plat sélectionné dans le DOM
-ingredientList.filter(ingredient => {
-    const ingredientHtml = ingredient.html();
-    let ingredientName = '{{ name }}';
-    ingredientName = ingredientName.interpolate(ingredient);
-    let ingredientLetter = '{{ letter }}';
-    ingredientLetter = ingredientLetter.interpolate(ingredient);
-    ingredientHtml.innerHTML = `<div class="letter">${ingredientLetter}</div>${ingredientName}`;
-    ingredientHtml.dataset.dish = ingredient.dish;
-    ingredientsArea.append(ingredientHtml);
-});
 
 
 export {
@@ -137,6 +144,7 @@ export {
     dishesShowed,
     ingredientsArea,
     ingredientList,
+    ingredientsShowed,
     selectDishesShowed,
     displayDishes,
     dishesChanged,

@@ -6,9 +6,9 @@ export default class Timer {
         this.timerId = null;
         this._done = done;
         this._last = last;
-        //
-        // this.run.bind(this);
-        // this.run();
+
+        this.run.bind(this);
+        this.run();
     }
 
     html() {

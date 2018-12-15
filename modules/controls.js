@@ -1,4 +1,4 @@
-import {dishesShowed} from './base';
+import {dishesShowed, dishList} from './base';
 import {activeDish, updateActiveDish} from "./utils";
 
 function handleControls() {
@@ -6,12 +6,6 @@ function handleControls() {
     document.addEventListener('keydown', function (e) {
         // Navigation dans les plats "en attente" :
         if (dishesShowed.length > 0) {
-            if (!document.querySelector('.dish.active')) {
-                updateActiveDish(dishesShowed[0]);
-                dishesShowed[0].active = true;
-                const dishShowHtml = dishesShowed[0].html();
-                dishShowHtml.classList.add('active');
-            }
             // Flèches du haut et du bas : sélection du plat
             if (e.code === 'ArrowDown') {
                 let currentIndex = undefined;
@@ -47,14 +41,12 @@ function handleControls() {
     document.addEventListener('keypress', function (e) {
         for (let ingredient of activeDish.ingredients) {
             if (e.key === ingredient.letter.toLowerCase() && !ingredient.validated) {
+                console.log(ingredient);
                 ingredient.validated = true;
-                const ingredientHtml = ingredient.html();
-                ingredientHtml.classList.add('validated');
-                document.querySelector(`[data-dish="${activeDish.id}"]`)
                 break;
             }
         }
-    })
+    });
 }
 
 module.exports = {

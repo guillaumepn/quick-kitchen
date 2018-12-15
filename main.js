@@ -4,12 +4,12 @@ import {
     root,
     dishArea,
     ingredientsArea,
-    ingredientList,
     topSection,
     dishesChanged,
     displayDishes,
     selectDishesShowed,
-    dishesShowed
+    dishesShowed,
+    ingredientsShowed
 } from './modules/base';
 
 import {handleControls} from './modules/controls';
@@ -27,6 +27,12 @@ function render() {
     if (dishesChanged) {
         selectDishesShowed();
         displayDishes();
+        if (!document.querySelector('.dish.active')) {
+            updateActiveDish(dishesShowed[0]);
+            dishesShowed[0].active = true;
+            const dishShowHtml = dishesShowed[0].html();
+            dishShowHtml.classList.add('active');
+        }
     }
 
     // Affichage du plat sélectionné
@@ -49,7 +55,9 @@ function render() {
         ingredient.classList.remove('show');
         if (ingredient.dataset.dish === activeDish.id) ingredient.classList.add('show');
         ingredient.classList.remove('validated');
-        if (ingredientList[index].validated) ingredient.classList.add('validated');
+        if (ingredientsShowed[index].validated && ingredientsShowed[index].id === ingredient.dataset.id) {
+            ingredient.classList.add('validated');
+        }
     });
 
     requestAnimationFrame(render);
