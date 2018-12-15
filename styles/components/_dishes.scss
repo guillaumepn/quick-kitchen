@@ -44,3 +44,17 @@
     }
   }
 }
+
+.cooking-dishes {
+  width: 20%;
+  position: relative;
+  padding: 30px;
+
+  &::before {
+    content: '~ Plats en cuisson ~';
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

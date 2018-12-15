@@ -2,8 +2,12 @@ import './styles/main.scss';
 
 import {
     root,
+    row1,
+    row2,
+    row3,
     dishArea,
     ingredientsArea,
+    cookingDishArea,
     topSection,
     displayDishes,
     selectDishesShowed,
@@ -17,7 +21,9 @@ import {activeDish, dishesChanged, updateActiveDish} from "./modules/utils";
 handleControls();
 
 // Ajoute l'ensemble des éléments au DOM
-root.append(ingredientsArea, topSection, dishArea);
+row1.append(ingredientsArea, topSection, dishArea);
+row2.append(cookingDishArea);
+root.append(row1, row2, row3);
 
 
 // Met à jour le DOM à chaque frame

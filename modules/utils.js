@@ -50,7 +50,7 @@ function validateDishMaking(dish) {
     dish.makingCompleted = true;
     const newScore = score + 5;
     updateScore(newScore);
-    removeDish(dish);
+    moveDishToCooking(dish);
 }
 
 // Quand la cuisson est finie et le plat envoyé
@@ -67,6 +67,18 @@ function removeDish(dish) {
     }
     document.querySelector('.dishes').removeChild(dishDOM);
     Array.from(dishIngredientsDOM).filter(ingredient => document.querySelector('.ingredients').removeChild(ingredient));
+}
+
+function moveDishToCooking(dish) {
+    const dishDOM = document.querySelector(`[data-id="${dish.id}"]`);
+    const dishIngredientsDOM = document.querySelectorAll(`[data-dish="${dish.id}"]`);
+    dishesShowed.splice(dishesShowed.indexOf(dish), 1);
+    for (let ingredient of dish.ingredients) {
+        ingredientsShowed.splice(ingredientsShowed.indexOf(ingredient), 1);
+    }
+    document.querySelector('.cooking-dishes').appendChild(dishDOM);
+    Array.from(dishIngredientsDOM).filter(ingredient => document.querySelector('.ingredients').removeChild(ingredient));
+
 }
 
 function updateScore(newScore) {

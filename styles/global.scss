@@ -1,10 +1,12 @@
 #root {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-around;
-  font-family: Verdana, sans-serif;
+  .row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    font-family: Verdana, sans-serif;
 
-  .top-section {
-    text-align: center;
+    .top-section {
+      text-align: center;
+    }
   }
 }

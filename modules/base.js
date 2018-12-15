@@ -18,12 +18,17 @@ import * as dishes from '../dishes';
 import Dish from "./classes/dish";
 import Ingredient from "./classes/ingredient";
 
+const row1 = document.createElement('div');
+const row2 = document.createElement('div');
+const row3 = document.createElement('div');
 const root = document.getElementById('root');
 const topSection = document.createElement('div');
 const title = document.createElement('h1');
 const scoreHtml = document.createElement('h4');
 const dishArea = document.createElement('div');
 const ingredientsArea = document.createElement('div');
+const cookingDishArea = document.createElement('div');
+
 const dishList = [];
 const dishesShowed = [];
 const ingredientList = [];
@@ -31,6 +36,12 @@ const ingredientsShowed = [];
 const levelDishes = [];
 let currentLevel = 1;
 
+row1.classList.add('row');
+row1.classList.add('row1');
+row2.classList.add('row');
+row2.classList.add('row2');
+row3.classList.add('row');
+row3.classList.add('row3');
 
 topSection.classList.add('top-section');
 title.innerText = 'JS Project';
@@ -39,6 +50,7 @@ topSection.append(title, scoreHtml);
 
 dishArea.classList.add('dishes');
 ingredientsArea.classList.add('ingredients');
+cookingDishArea.classList.add('cooking-dishes');
 
 
 // Les plats à partir de levels.json et dishes.json pour le niveau actuel
@@ -150,6 +162,9 @@ displayDishes();
 
 export {
     root,
+    row1,
+    row2,
+    row3,
     topSection,
     dishArea,
     dishList,
@@ -157,6 +172,7 @@ export {
     ingredientsArea,
     ingredientList,
     ingredientsShowed,
+    cookingDishArea,
     selectDishesShowed,
     displayDishes,
 };
