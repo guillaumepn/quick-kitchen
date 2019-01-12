@@ -123,6 +123,20 @@ function displayDishes() {
     dishesShowed.filter((dish, index) => {
         if (!dish.timer) {
             dish.timer = new Timer(`${dish.name}_${index}`, dish.waitingDuration, dish.id);
+
+            // Apparition d'un personnage pour chaque nouveau plat
+
+            var imgList = ['abraham.png', 'lisa.png', 'bart.png', 'homer.png', 'marge.png'];
+
+            var img = document.createElement("img");
+            img.src = "images/" + imgList[Math.floor(Math.random() * imgList.length)];
+            img.style.height = "350px";
+            img.className = "waiter_single";
+
+            waiters.appendChild(img);
+
+            // End
+
             // Le timer du plat a expiré :
             timesUp(dish.timer).then(function () {
                 if (!dish.makingCompleted) {
@@ -131,6 +145,11 @@ function displayDishes() {
                     removeDish(dish);
                     decreaseDishesCounter();
                     dishesHasChanged();
+
+                    // Disparition du personnage
+                    img.style.opacity = '0';
+                    setTimeout(function(){img.parentNode.removeChild(img);}, 1000);
+                    //waiters.removeChild(img);
                 }
             });
 
@@ -140,18 +159,6 @@ function displayDishes() {
             dishHtml.innerText = dishName;
             dishHtml.appendChild(dish.timer.html());
 
-            // Apparition d'un personnage pour chaque nouveau plat
-
-            var img = document.createElement("img");
-            img.src = "images/abraham.png";
-            img.style.width = "150px";
-
-            var newContent = document.createTextNode('<img src="images/abraham.png">'); 
-            waiters.appendChild(img);
-
-            console.log("arrivant");
-
-            // End
             if (dish.active) {
                 updateActiveDish(dish);
                 dishHtml.classList.add('active');
