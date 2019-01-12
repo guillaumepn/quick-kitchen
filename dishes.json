@@ -13,7 +13,7 @@
                         "order": 0
                     },
                     "creme": {
-                        "name": "Crème",
+                        "name": "<img src=\"images/icons/creme.png\" width=\"40px\"><img src=\"images/icons/creme_text.png\" width=\"40px\">",
                         "type": "ingredient",
                         "letter": "C",
                         "order": 0
@@ -21,13 +21,13 @@
                 }
             },
             "fromage": {
-                "name": "Fromage",
+                "name": "<img src=\"images/icons/cheese.png\" width=\"50px\"><img src=\"images/icons/cheese_text.png\" width=\"55px\">",
                 "type": "ingredient",
                 "letter": "F",
                 "order": 1
             },
             "olives": {
-                "name": "Olives",
+                "name": "<img src=\"images/icons/olives.png\" width=\"50px\"><img src=\"images/icons/olives_text.png\" width=\"40px\">",
                 "type": "ingredient",
                 "letter": "O",
                 "order": 2
