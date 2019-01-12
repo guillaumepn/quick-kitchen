@@ -28,7 +28,6 @@ const scoreHtml = document.createElement('h4');
 const dishArea = document.createElement('div');
 const ingredientsArea = document.createElement('div');
 const cookingDishArea = document.createElement('div');
-const waiters = document.createElement('div');
 
 const dishList = [];
 const dishesShowed = [];
@@ -44,11 +43,8 @@ row2.classList.add('row2');
 row3.classList.add('row');
 row3.classList.add('row3');
 
-waiters.classList.add('waiters');
-document.body.insertBefore(waiters, root.nextSibling);
-
 topSection.classList.add('top-section');
-title.innerText = '';
+title.innerText = 'JS Project';
 scoreHtml.innerHTML = `Score : <span class="score">${score}</span>`;
 topSection.append(title, scoreHtml);
 
@@ -139,19 +135,6 @@ function displayDishes() {
             dishName = dishName.interpolate(dish);
             dishHtml.innerText = dishName;
             dishHtml.appendChild(dish.timer.html());
-
-            // Apparition d'un personnage pour chaque nouveau plat
-
-            var img = document.createElement("img");
-            img.src = "images/abraham.png";
-            img.style.width = "150px";
-
-            var newContent = document.createTextNode('<img src="images/abraham.png">'); 
-            waiters.appendChild(img);
-
-            console.log("arrivant");
-
-            // End
             if (dish.active) {
                 updateActiveDish(dish);
                 dishHtml.classList.add('active');

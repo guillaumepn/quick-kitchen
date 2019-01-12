@@ -1,36 +1,27 @@
 .dishes {
-    width: 20%;
-    border-radius: 3px;
-    position: relative;
-    padding: 30px;
-    min-height: 198px;
+  width: 20%;
+  position: relative;
+  padding: 30px;
 
   &::before {
-    content: 'Plats';
-    display: block;
-    font-size: 32px;
-    text-transform: uppercase;
-    color: #fff;
-    text-align: center;
-    margin-bottom: 10px;
-    font-family: 'Patrick Hand', cursive;
+    content: '~ Plats ~';
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .dish {
     display: flex;
     align-items: center;
-    font-family: 'Patrick Hand', cursive;
     justify-content: space-between;
-    //background-color: #ecf0f1;
+    background-color: #ecf0f1;
     padding: 5px;
-    color: #fff;
-    font-size: 20px;
     transition-duration: 0.3s;
 
     &.active {
-      background-color: #EAEFD3;
-      outline: 2px solid #fff;
-      color: #000;
+      background-color: #f7d794;
+      outline: 2px solid #f5cd79;
     }
 
     &.done {
@@ -58,38 +49,12 @@
   width: 20%;
   position: relative;
   padding: 30px;
-  border-radius: 3px;
-  background-color: #EAEFD3;
-
-  .dish{
-    font-family: 'Sarabun', sans-serif;
-    font-size: 25px;
-    background-color: #FED99B;
-    padding: 3px;
-    border-radius: 3px;
-    margin-bottom: 10px;
-
-    .timer{
-      display: inline-block;
-      float: right;
-
-      .chrono{
-        font-size: 25px;
-      }
-      .icon{
-        width: 30px;
-      }
-    }
-  }
 
   &::before {
-    content: 'Plats en cuisson';
-    color: #FE654F;
-    font-family: 'Oswald', sans-serif;
-    text-align: center;
-    display: block;
-    margin-top: -25px;
-    font-size: 40px;
-    margin-bottom: 10px;
+    content: '~ Plats en cuisson ~';
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
