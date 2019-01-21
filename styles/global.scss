@@ -1,3 +1,8 @@
+body {
+  background-image: url("/images/bg.jpg");
+  background-size: cover;
+}
+
 #root {
   .row {
     padding: 10px;
@@ -15,6 +20,11 @@
 		color: #fed99b;
 		margin: 0;
 		text-shadow: 4px 6px 15px black;
+        background-image: url("/images/logo.png");
+        background-size: 100%;
+        background-repeat: no-repeat;
+        height: 201px;
+        width: 244px;
       }
 
       h4{

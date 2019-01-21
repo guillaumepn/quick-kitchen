@@ -9,6 +9,7 @@ import {
     ingredientsArea,
     cookingDishArea,
     topSection,
+    waiters,
     displayDishes,
     selectDishesShowed,
     dishesShowed,
@@ -23,6 +24,7 @@ handleControls();
 // Ajoute l'ensemble des éléments au DOM
 row1.append(ingredientsArea, topSection, dishArea);
 row2.append(cookingDishArea);
+row3.append(waiters);
 root.append(row1, row2, row3);
 
 

@@ -45,7 +45,7 @@ row3.classList.add('row');
 row3.classList.add('row3');
 
 waiters.classList.add('waiters');
-document.body.insertBefore(waiters, root.nextSibling);
+// document.body.insertBefore(waiters, root.nextSibling);
 
 topSection.classList.add('top-section');
 title.innerText = '';
@@ -130,7 +130,7 @@ function displayDishes() {
 
             var img = document.createElement("img");
             img.src = "images/" + imgList[Math.floor(Math.random() * imgList.length)];
-            img.style.height = "350px";
+            img.style.height = "320px";
             img.className = "waiter_single";
 
             waiters.appendChild(img);
@@ -197,6 +197,7 @@ export {
     ingredientList,
     ingredientsShowed,
     cookingDishArea,
+    waiters,
     selectDishesShowed,
     displayDishes,
 };
