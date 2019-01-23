@@ -11,6 +11,7 @@ import {
     score,
     timesUp,
     updateActiveDish,
+    updateActiveCook,
     updateScore
 } from "./utils";
 import * as levels from '../levels';
@@ -176,3 +177,5 @@ export {
     selectDishesShowed,
     displayDishes,
 };
+
+

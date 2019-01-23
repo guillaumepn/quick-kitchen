@@ -35,7 +35,7 @@
         },
         "cooldown": 10,
         "duration": 10,
-        "expire": 5
+        "expire": 500
     },
     "burger": {
         "name": "Burger",

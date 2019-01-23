@@ -1,6 +1,8 @@
 import {dishesShowed, ingredientsShowed} from "./base";
 
+const cookShowed = [];
 let activeDish = undefined;
+let activeCook = undefined;
 let score = 0;
 let dishesCursor = 0;
 let dishesCounter = 0;
@@ -33,6 +35,13 @@ function prop_access(object, string) {
 function updateActiveDish(dish) {
     dish.active = true;
     activeDish = dish;
+    const dishShowHtml = dish.html();
+    dishShowHtml.classList.add('active');
+}
+
+function updateActiveCook(dish) {
+    dish.active = true;
+    activeCook = dish;
     const dishShowHtml = dish.html();
     dishShowHtml.classList.add('active');
 }
@@ -79,6 +88,7 @@ function moveDishToCooking(dish) {
     for (let ingredient of dish.ingredients) {
         ingredientsShowed.splice(ingredientsShowed.indexOf(ingredient), 1);
     }
+    cookShowed.push(dish);
     document.querySelector('.cooking-dishes').appendChild(dishDOM);
     Array.from(dishIngredientsDOM).filter(ingredient => document.querySelector('.ingredients').removeChild(ingredient));
 }
@@ -117,10 +127,13 @@ export {
     score,
     timesUp,
     updateActiveDish,
+    updateActiveCook,
     checkCompletedDishMaking,
     removeDish,
     updateScore,
     activeDish,
+    activeCook,
+    cookShowed,
     dishesCursor,
     dishesCounter,
     dishesChanged,

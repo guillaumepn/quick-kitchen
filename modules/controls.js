@@ -1,5 +1,5 @@
 import {dishesShowed} from './base';
-import {activeDish, checkCompletedDishMaking, updateActiveDish} from "./utils";
+import {activeDish, cookShowed, activeCook, checkCompletedDishMaking, updateActiveDish, updateActiveCook} from "./utils";
 
 function handleControls() {
 // Gestion des touches du clavier
@@ -31,9 +31,24 @@ function handleControls() {
 
         // Flèches de gauche et droite : sélection du plat en cuisson
         else if (e.code === 'ArrowLeft') {
+            cookShowed.filter(function (dish, index) {
+                if (dish.active) currentIndex = index;
+            });
+            cookShowed[currentIndex].active = false;
+            currentIndex++;
+            if (currentIndex >= cookShowed.length) currentIndex = 0;
+            cookShowed[currentIndex].active = true;
+            updateActiveCook(cookShowed[currentIndex]);
 
         } else if (e.code === 'ArrowRight') {
-
+            cookShowed.filter(function (dish, index) {
+                if (dish.active) currentIndex = index;
+            });
+            cookShowed[currentIndex].active = false;
+            currentIndex--;
+            if (currentIndex < 0) currentIndex = cookShowed.length - 1;
+            cookShowed[currentIndex].active = true;
+            updateActiveCook(cookShowed[currentIndex]);
         }
     });
 
