@@ -5,6 +5,8 @@ let score = 0;
 let dishesCursor = 0;
 let dishesCounter = 0;
 let dishesChanged = false;
+let levelDishValidatedCounter = 0;
+let levelEnded = false;
 
 String.prototype.interpolate = function (object) {
     const prop = this
@@ -30,6 +32,10 @@ function prop_access(object, string) {
     return res || string;
 }
 
+function endLevel() {
+    levelEnded = true;
+}
+
 function updateActiveDish(dish) {
     dish.active = true;
     activeDish = dish;
@@ -50,6 +56,7 @@ function checkCompletedDishMaking(dish) {
 function validateDishMaking(dish) {
     dish.makingCompleted = true;
     const newScore = score + 5;
+    levelDishValidatedCounter--;
     updateScore(newScore);
     moveDishToCooking(dish);
     decreaseDishesCounter();
@@ -90,6 +97,7 @@ function updateScore(newScore) {
 
 function decreaseDishesCounter() {
     dishesCounter--;
+    console.log(dishesCounter)
 }
 
 function increaseDishesCounter() {
@@ -130,4 +138,7 @@ export {
     increaseDishesCursor,
     dishesHasChanged,
     dishesHasNotChanged,
+    levelDishValidatedCounter,
+    levelEnded,
+    endLevel
 };

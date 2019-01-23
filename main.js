@@ -13,11 +13,12 @@ import {
     displayDishes,
     selectDishesShowed,
     dishesShowed,
-    ingredientsShowed
+    ingredientsShowed,
+    levelDishExpiredCounter,
 } from './modules/base';
 
 import {handleControls} from './modules/controls';
-import {activeDish, dishesChanged, updateActiveDish} from "./modules/utils";
+import {activeDish, dishesChanged, updateActiveDish, levelDishValidatedCounter, endLevel, levelEnded} from "./modules/utils";
 
 handleControls();
 
@@ -37,6 +38,10 @@ function render() {
         if (dishesShowed.length > 0 && !document.querySelector('.dish.active')) {
             updateActiveDish(dishesShowed[0]);
         }
+    }
+
+    if (levelDishValidatedCounter + levelDishExpiredCounter === 0) {
+        endLevel();
     }
 
     // Affichage du plat sélectionné

@@ -6,7 +6,7 @@ import {
     dishesHasChanged,
     dishesHasNotChanged,
     increaseDishesCounter,
-    increaseDishesCursor,
+    increaseDishesCursor, levelDishCounter,
     removeDish,
     score,
     timesUp,
@@ -36,6 +36,7 @@ const ingredientList = [];
 const ingredientsShowed = [];
 const levelDishes = [];
 let currentLevel = 1;
+let levelDishExpiredCounter = levelDishCounter;
 
 row1.classList.add('row');
 row1.classList.add('row1');
@@ -96,6 +97,7 @@ levelDishes.map((dish, index) => {
     dishList.push(newDish);
 });
 
+levelDishExpiredCounter = dishList.length;
 
 // Sélectionne les plats à montrer dans le DOM (plats "en attente")
 function selectDishesShowed() {
@@ -145,6 +147,7 @@ function displayDishes() {
                     removeDish(dish);
                     decreaseDishesCounter();
                     dishesHasChanged();
+                    levelDishExpiredCounter--;
 
                     // Disparition du personnage
                     img.style.opacity = '0';
@@ -200,4 +203,5 @@ export {
     waiters,
     selectDishesShowed,
     displayDishes,
+    levelDishExpiredCounter,
 };
