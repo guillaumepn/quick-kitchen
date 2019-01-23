@@ -28,6 +28,7 @@ const scoreHtml = document.createElement('h4');
 const dishArea = document.createElement('div');
 const ingredientsArea = document.createElement('div');
 const cookingDishArea = document.createElement('div');
+const waiters = document.createElement('div');
 
 const dishList = [];
 const dishesShowed = [];
@@ -43,8 +44,11 @@ row2.classList.add('row2');
 row3.classList.add('row');
 row3.classList.add('row3');
 
+waiters.classList.add('waiters');
+// document.body.insertBefore(waiters, root.nextSibling);
+
 topSection.classList.add('top-section');
-title.innerText = 'JS Project';
+title.innerText = '';
 scoreHtml.innerHTML = `Score : <span class="score">${score}</span>`;
 topSection.append(title, scoreHtml);
 
@@ -119,6 +123,20 @@ function displayDishes() {
     dishesShowed.filter((dish, index) => {
         if (!dish.timer) {
             dish.timer = new Timer(`${dish.name}_${index}`, dish.waitingDuration, dish.id);
+
+            // Apparition d'un personnage pour chaque nouveau plat
+
+            let imgList = ['abraham.png', 'lisa.png', 'bart.png', 'homer.png', 'marge.png'];
+
+            let img = document.createElement("img");
+            img.src = "images/" + imgList[Math.floor(Math.random() * imgList.length)];
+            img.style.height = "320px";
+            img.className = "waiter_single";
+
+            waiters.appendChild(img);
+
+            // End
+
             // Le timer du plat a expiré :
             timesUp(dish.timer).then(function () {
                 if (!dish.makingCompleted) {
@@ -127,6 +145,11 @@ function displayDishes() {
                     removeDish(dish);
                     decreaseDishesCounter();
                     dishesHasChanged();
+
+                    // Disparition du personnage
+                    img.style.opacity = '0';
+                    setTimeout(function(){img.parentNode.removeChild(img);}, 1000);
+                    //waiters.removeChild(img);
                 }
             });
 
@@ -135,6 +158,7 @@ function displayDishes() {
             dishName = dishName.interpolate(dish);
             dishHtml.innerText = dishName;
             dishHtml.appendChild(dish.timer.html());
+
             if (dish.active) {
                 updateActiveDish(dish);
                 dishHtml.classList.add('active');
@@ -173,6 +197,7 @@ export {
     ingredientList,
     ingredientsShowed,
     cookingDishArea,
+    waiters,
     selectDishesShowed,
     displayDishes,
 };
