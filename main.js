@@ -80,15 +80,7 @@ function render() {
         }
     });
 
-    requestAnimationFrame(afterLevel);
     requestAnimationFrame(render);
-}
-
-function afterLevel() {
-    if (levelEnded === true) {
-        topSection.append(nextlevel);
-        topSection.append(history);
-    }
 }
 
 goToNextLevelModal.addEventListener('click', function () {

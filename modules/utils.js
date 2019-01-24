@@ -1,4 +1,4 @@
-import {dishesShowed, ingredientsShowed} from "./base";
+import {dishesShowed, history, ingredientsShowed, nextlevel, topSection} from "./base";
 
 let activeDish = undefined;
 let score = 0;
@@ -35,7 +35,10 @@ function prop_access(object, string) {
 }
 
 function endLevel() {
-    levelEnded = true;
+    if (!levelEnded) {
+        levelEnded = true;
+        afterLevel();
+    }
 }
 
 function updateActiveDish(dish) {
@@ -97,6 +100,13 @@ function moveDishToCooking(dish) {
 function updateScore(newScore) {
     score = newScore;
     document.querySelector('.score').innerHTML = newScore.toString();
+}
+
+function afterLevel() {
+    if (levelEnded === true) {
+        topSection.append(nextlevel);
+        topSection.append(history);
+    }
 }
 
 function decreaseDishesCounter() {
