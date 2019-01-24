@@ -7,6 +7,8 @@ let dishesCounter = 0;
 let dishesChanged = false;
 let levelDishValidatedCounter = 0;
 let levelEnded = false;
+let failedDish = 0;
+let successDish = 0;
 
 String.prototype.interpolate = function (object) {
     const prop = this
@@ -56,6 +58,7 @@ function checkCompletedDishMaking(dish) {
 function validateDishMaking(dish) {
     dish.makingCompleted = true;
     const newScore = score + 5;
+    increaseSucessDish();
     levelDishValidatedCounter--;
     updateScore(newScore);
     moveDishToCooking(dish);
@@ -87,6 +90,7 @@ function moveDishToCooking(dish) {
         ingredientsShowed.splice(ingredientsShowed.indexOf(ingredient), 1);
     }
     document.querySelector('.cooking-dishes').appendChild(dishDOM);
+    dishDOM.removeChild(dishDOM.lastChild);
     Array.from(dishIngredientsDOM).filter(ingredient => document.querySelector('.ingredients').removeChild(ingredient));
 }
 
@@ -106,6 +110,14 @@ function increaseDishesCounter() {
 
 function decreaseDishesCursor() {
     dishesCursor--;
+}
+
+function increaseSucessDish() {
+    successDish++;
+}
+
+function increaseFailedDish() {
+    failedDish++;
 }
 
 function increaseDishesCursor() {
@@ -135,6 +147,10 @@ export {
     decreaseDishesCounter,
     increaseDishesCounter,
     decreaseDishesCursor,
+    increaseFailedDish,
+    increaseSucessDish,
+    failedDish,
+    successDish,
     increaseDishesCursor,
     dishesHasChanged,
     dishesHasNotChanged,

@@ -5,20 +5,31 @@ import {
     row1,
     row2,
     row3,
+    modal,
+    nextlevel,
+    history,
     dishArea,
     ingredientsArea,
     cookingDishArea,
     topSection,
     waiters,
+    contentModal,
+    prepareDishForLevel,
     displayDishes,
     selectDishesShowed,
     dishesShowed,
     ingredientsShowed,
     levelDishExpiredCounter,
+    retryModal,
+    goToNextLevelModal,
 } from './modules/base';
 
 import {handleControls} from './modules/controls';
-import {activeDish, dishesChanged, updateActiveDish, levelDishValidatedCounter, endLevel, levelEnded} from "./modules/utils";
+import {activeDish, dishesChanged, updateActiveDish, levelDishValidatedCounter, endLevel, levelEnded, score, failedDish, successDish} from "./modules/utils";
+
+const scoreModal = document.createElement('div');
+const successDishModal = document.createElement('div');
+const failedDishModal = document.createElement('div');
 
 handleControls();
 
@@ -26,7 +37,7 @@ handleControls();
 row1.append(ingredientsArea, topSection, dishArea);
 row2.append(cookingDishArea);
 row3.append(waiters);
-root.append(row1, row2, row3);
+root.append(row1, row2, row3, modal);
 
 
 // Met à jour le DOM à chaque frame
@@ -69,7 +80,40 @@ function render() {
         }
     });
 
+    requestAnimationFrame(afterLevel);
     requestAnimationFrame(render);
 }
+
+function afterLevel() {
+    if (levelEnded === true) {
+        topSection.append(nextlevel);
+        topSection.append(history);
+    }
+}
+
+goToNextLevelModal.addEventListener('click', function () {
+    prepareDishForLevel(2);
+});
+
+retryModal.addEventListener('click', function () {
+    prepareDishForLevel(1);
+});
+
+nextlevel.addEventListener('click', function () {
+    prepareDishForLevel(2);
+});
+
+history.addEventListener('click', function () {
+    let stateObj = { score: score, successDish: successDish, failedDish: failedDish };
+    window.history.pushState(stateObj, "page récapitulative score", "?recap");
+
+    scoreModal.innerHTML = `Score : <span class="score">${window.history.state.score}</span>`;
+    successDishModal.innerHTML = `Plats réussis : <span class="score">${window.history.state.successDish}</span>`;
+    failedDishModal.innerHTML = `Plats ratés : <span class="score">${window.history.state.failedDish}</span>`;
+    contentModal.append(scoreModal, successDishModal, failedDishModal);
+    document.getElementsByClassName('modal')[0].style.display = "block";
+
+});
+
 
 requestAnimationFrame(render);
