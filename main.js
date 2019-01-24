@@ -88,7 +88,11 @@ goToNextLevelModal.addEventListener('click', function () {
 });
 
 retryModal.addEventListener('click', function () {
-    prepareDishForLevel(1);
+    window.history.back();
+    modal.style.display = 'none';
+    setTimeout(() => {
+        window.location.reload();
+    }, 1000);
 });
 
 nextlevel.addEventListener('click', function () {
@@ -97,7 +101,7 @@ nextlevel.addEventListener('click', function () {
 
 history.addEventListener('click', function () {
     let stateObj = { score: score, successDish: successDish, failedDish: failedDish };
-    window.history.pushState(stateObj, "page récapitulative score", "?recap");
+    window.history.pushState(stateObj, "page récapitulative score", "/recap");
 
     scoreModal.innerHTML = `Score : <span class="score">${window.history.state.score}</span>`;
     successDishModal.innerHTML = `Plats réussis : <span class="score">${window.history.state.successDish}</span>`;

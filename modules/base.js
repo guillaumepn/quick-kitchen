@@ -49,7 +49,7 @@ contentModal.classList.add('contentModal');
 titleModal.innerHTML = 'Récapitulatif du niveau';
 goToNextLevelModal.innerHTML = `Passer au niveau suivant`;
 retryModal.innerHTML = `Réessayer le niveau`;
-modal.append(titleModal, contentModal, retryModal, goToNextLevelModal);
+modal.append(titleModal, contentModal, retryModal);
 
 
 const dishList = [];

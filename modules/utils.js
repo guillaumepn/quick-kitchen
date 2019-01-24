@@ -104,7 +104,7 @@ function updateScore(newScore) {
 
 function afterLevel() {
     if (levelEnded === true) {
-        topSection.append(nextlevel);
+        // topSection.append(nextlevel);
         topSection.append(history);
     }
 }
@@ -141,6 +141,13 @@ function dishesHasChanged() {
 function dishesHasNotChanged() {
     dishesChanged = false;
 }
+
+function type_check(val, conf) {
+    return (conf.type ? typeof val === conf.type : true)
+        && (conf.value ? val === conf.value : true)
+        && (conf.enum ? conf.enum.includes(val) : true)
+}
+
 
 
 export {
