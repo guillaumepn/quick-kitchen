@@ -9,7 +9,7 @@ function handleControls() {
             e.preventDefault();
         }
     }, false);
-    
+
     document.addEventListener('keyup', function (e) {
         // Navigation dans les plats "en attente" :
         if (dishesShowed.length > 0) {

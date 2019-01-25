@@ -3,13 +3,13 @@ import {typeCheck} from "../utils";
 export default class Ingredient {
     constructor(id, name, letter, dish, validated, showed, active, order) {
         this._id = typeCheck(id, {type: 'string'}) && id;
-        this._name = name;
-        this._letter = letter;
-        this._dish = dish;
-        this._validated = validated;
-        this._order = order;
-        this._active = active;
-        this._showed = showed;
+        this._name = typeCheck(name, {type: 'string'}) && name;
+        this._letter = typeCheck(letter, {type: 'string'}) && letter;
+        this._dish = typeCheck(dish, {type: 'object'}) && dish;
+        this._validated = typeCheck(validated, {type: 'boolean'}) && validated;
+        this._order = typeCheck(order, {type: 'number'}) && order;
+        this._active = typeCheck(active, {type: 'boolean'}) && active;
+        this._showed = typeCheck(showed, {type: 'boolean'}) && showed;
     }
 
     html() {
