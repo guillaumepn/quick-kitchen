@@ -1,6 +1,8 @@
+import {typeCheck} from "../utils";
+
 export default class Ingredient {
     constructor(id, name, letter, dish, validated, showed, active, order) {
-        this._id = id;
+        this._id = typeCheck(id, {type: 'string'}) && id;
         this._name = name;
         this._letter = letter;
         this._dish = dish;

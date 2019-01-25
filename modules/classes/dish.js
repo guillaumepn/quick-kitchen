@@ -1,16 +1,18 @@
+import {typeCheck} from "../utils";
+
 export default class Dish {
     constructor(id, name, timer = null, ingredients = [], showed, waitingDuration, cookingDuration, beforeBurnt, active, makingCompleted = false, cookingCompleted = false) {
-        this._id = id;
-        this._name = name;
-        this._ingredients = ingredients;
-        this._waitingDuration = waitingDuration;
-        this._cookingDuration = cookingDuration;
-        this._beforeBurnt = beforeBurnt;
-        this._timer = timer;
-        this._active = active;
-        this._showed = showed;
-        this._makingCompleted = makingCompleted;
-        this._cookingCompleted = cookingCompleted;
+        this._id = typeCheck(id, {type: 'string'}) && id;
+        this._name = typeCheck(name, {type: 'string'}) && name;
+        this._ingredients = typeCheck(ingredients, {type: 'object'}) && ingredients;
+        this._waitingDuration = typeCheck(waitingDuration, {type: 'number'}) && waitingDuration;
+        this._cookingDuration = typeCheck(cookingDuration, {type: 'number'}) && cookingDuration;
+        this._beforeBurnt = typeCheck(beforeBurnt, {type: 'number'}) && beforeBurnt;
+        this._timer = typeCheck(timer, {type: 'number'}) && timer;
+        this._active = typeCheck(active, {type: 'boolean'}) && active;
+        this._showed = typeCheck(showed, {type: 'boolean'}) && showed;
+        this._makingCompleted = typeCheck(makingCompleted, {type: 'boolean'}) && makingCompleted;
+        this._cookingCompleted = typeCheck(cookingCompleted, {type: 'boolean'}) && cookingCompleted;
     }
 
     html() {

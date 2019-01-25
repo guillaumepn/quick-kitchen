@@ -3,12 +3,20 @@ import {activeDish, checkCompletedDishMaking, updateActiveDish} from "./utils";
 
 function handleControls() {
 // Gestion des touches du clavier
+    // Empêche les flèches du clavier de scroller la fenêtre
+    window.addEventListener("keydown", function(e) {
+        if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+            e.preventDefault();
+        }
+    }, false);
+    
     document.addEventListener('keyup', function (e) {
         // Navigation dans les plats "en attente" :
         if (dishesShowed.length > 0) {
             let currentIndex = 0;
             // Flèches du haut et du bas : sélection du plat
             if (e.code === 'ArrowDown') {
+                e.preventDefault();
                 dishesShowed.filter(function (dish, index) {
                     if (dish.active) currentIndex = index;
                 });
@@ -18,6 +26,7 @@ function handleControls() {
                 dishesShowed[currentIndex].active = true;
                 updateActiveDish(dishesShowed[currentIndex]);
             } else if (e.code === 'ArrowUp') {
+                e.preventDefault();
                 dishesShowed.filter(function (dish, index) {
                     if (dish.active) currentIndex = index;
                 });

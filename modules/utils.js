@@ -142,7 +142,7 @@ function dishesHasNotChanged() {
     dishesChanged = false;
 }
 
-function type_check(val, conf) {
+function typeCheck(val, conf) {
     return (conf.type ? typeof val === conf.type : true)
         && (conf.value ? val === conf.value : true)
         && (conf.enum ? conf.enum.includes(val) : true)
@@ -173,5 +173,6 @@ export {
     dishesHasNotChanged,
     levelDishValidatedCounter,
     levelEnded,
-    endLevel
+    endLevel,
+    typeCheck
 };
